@@ -2,18 +2,24 @@ machine:
   services:
     - docker
 
-  pre:
-    - bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/1.0.22/binscripts/gvm-installer)
-
-  post:
-    - gvm install go1.6 -B --name=stable
-
 dependencies:
+  pre:
+    - gem install package_cloud
   override:
     - git clone https://github.com/docker/machine
-    - cd machine && git checkout $(cat VERSION)
+    - cd machine && git checkout v$(cat ../VERSION)
+    - sed -i 's/\[linux\/amd64\]/\[linux\/amd64\]\[linux\/arm\]/' machine/mk/build.mk
 
 test:
   pre:
-    - cd machine && gvm use stable && make build:
-        pwd: $BASE_STABLE
+    - cd machine && USE_CONTAINER=true TARGET_OS=linux TARGET_ARCH=arm make build-x
+    - cp machine/bin/* $CIRCLE_ARTIFACTS
+    - ./build_debian_package.sh docker-machine "$(cat VERSION)-$CIRCLE_BUILD_NUM" $(pwd)
+    - find . -print | grep deb
+    - cp package/*.deb $CIRCLE_ARTIFACTS
+
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - package_cloud push Hypriot/Schatzkiste/debian/wheezy $CIRCLE_ARTIFACTS/*.deb
