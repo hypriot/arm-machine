@@ -1,7 +1,7 @@
 # arm-machine
 
 This is an automated build for docker-machine on ARM.
-This build clones the official repo [docker/compose](https://github.com/docker/machine) and generates an ARMv6 binary.
+This build clones the official repo [docker/machine](https://github.com/docker/machine) and generates an ARMv6 binary.
 
 ## Installation
 
