@@ -10,10 +10,8 @@ machine:
 
 dependencies:
   override:
-    - >
-      git clone https://github.com/docker/machine
-      cd machine
-      git checkout $(cat VERSION)
+    - git clone https://github.com/docker/machine
+    - cd machine && git checkout $(cat VERSION)
 
 test:
   pre:
