@@ -16,7 +16,7 @@ test:
     - cp machine/bin/* $CIRCLE_ARTIFACTS
     - ./build_debian_package.sh docker-machine "$(cat VERSION)-$CIRCLE_BUILD_NUM" $(pwd)
     - find . -print | grep deb
-    - cp package/*.deb $CIRCLE_ARTIFACTS
+    - cp package/docker-machine.deb $CIRCLE_ARTIFACTS/docker-machine_$(cat VERSION)-${CIRCLE_BUILD_NUM}_armhf.deb
 
 deployment:
   release:
