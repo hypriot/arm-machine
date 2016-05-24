@@ -15,6 +15,7 @@ cp $BUILD_DIR/machine/bin/docker-machine* $BUILD_DIR/package/$PACKAGE_NAME/usr/l
 # copy package control template and replace version info
 cp -v ./control_file_template $BUILD_DIR/package/$PACKAGE_NAME/DEBIAN/control
 sed -i'' "s/<VERSION>/${PACKAGE_VERSION}/g" $BUILD_DIR/package/$PACKAGE_NAME/DEBIAN/control
+chown -R root:root $BUILD_DIR/package/usr
 
 # actually create package with dpkg-deb
 cd $BUILD_DIR/package
