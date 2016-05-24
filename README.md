@@ -1,4 +1,5 @@
 # arm-machine
+[![CircleCI](https://circleci.com/gh/hypriot/arm-machine.svg?style=svg)](https://circleci.com/gh/hypriot/arm-machine)
 
 This is an automated build for docker-machine on ARM.
 This build clones the official repo [docker/machine](https://github.com/docker/machine) and generates an ARMv6 binary.
