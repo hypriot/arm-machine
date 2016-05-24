@@ -14,9 +14,8 @@ test:
   pre:
     - cd machine && USE_CONTAINER=true TARGET_OS=linux TARGET_ARCH=arm make build-x
     - cp machine/bin/* $CIRCLE_ARTIFACTS
-    - ./build_debian_package.sh docker-machine "$(cat VERSION)-$CIRCLE_BUILD_NUM" $(pwd)
-    - find . -print | grep deb
-    - cp package/docker-machine.deb $CIRCLE_ARTIFACTS/docker-machine_$(cat VERSION)-${CIRCLE_BUILD_NUM}_armhf.deb
+    - ./build_debian_package.sh docker-machine "$(cat VERSION)" $(pwd)
+    - cp *.deb $CIRCLE_ARTIFACTS
 
 deployment:
   release:
